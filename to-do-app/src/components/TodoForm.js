@@ -3,7 +3,7 @@ import { View, StyleSheet, Button } from 'react-native'
 
 import Input from './Input'
 
-export default class ToDoForm extends React.Component {
+export default class TodoForm extends React.Component {
     constructor(props) {
         super(props)
 
@@ -27,10 +27,16 @@ export default class ToDoForm extends React.Component {
         return (
             <View style={styles.formContainer}>
                 <View style={styles.inputContainer}>
-                    <Input onChangeText={text => this.onChangeText(text)} value={text}/>
+                    <Input
+                        onChangeText={text => this.onChangeText(text)}
+                        value={text} 
+                    />
                 </View>
                 <View style={styles.buttonContainer}>
-                    <Button title="add" onPress={() => this.onPress()} />
+                    <Button
+                        title="add"
+                        onPress={() => this.onPress()} 
+                    />
                 </View>
             </View>
         )
