@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "redux-devtools": "redux-devtools --hostname=localhost --port=8000 --injectserver=reactnative"
   },
   "dependencies": {
     "expo": "~38.0.8",
@@ -13,11 +14,15 @@
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "~0.11.7",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
-    "babel-preset-expo": "~8.1.0"
+    "babel-preset-expo": "~8.1.0",
+    "redux-devtools-cli": "^1.0.0-4",
+    "remote-redux-devtools": "^0.5.16"
   },
   "private": true
 }
