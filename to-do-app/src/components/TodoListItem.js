@@ -5,7 +5,10 @@ export default ({ todo, onPressTodo }) => {
     return(
         <TouchableOpacity onPress={() => {onPressTodo()}}>
             <View style={styles.line}>
-                <Text style={styles.lineText}>
+                <Text style={[
+                    styles.lineText,
+                    todo.done ? styles.lineThrough : null
+                ]}>
                     { todo.text }
                 </Text>
             </View>
@@ -26,6 +29,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
         paddingLeft: 15,
         flex: 7
+    },
+    lineThrough: {
+        textDecorationLine: 'line-through'
     }
 
 })
