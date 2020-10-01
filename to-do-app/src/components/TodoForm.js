@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet, Button } from 'react-native'
 import { connect } from 'react-redux'
 
-import { addTodo, setTodoText } from '../actions'
+import { addTodo, setTodoText, updateTodo } from '../actions'
 
 import Input from './Input'
 
@@ -12,12 +12,17 @@ class TodoForm extends React.Component {
     }
 
     onPress() {
-        const { text } = this.props.todo
-        this.props.dispatchAddTodo(text)
+        const { todo } = this.props
+        if (todo.id) {
+            this.props.dispatchUpdateTodo(todo)
+        } else {
+            const { text } = todo
+            this.props.dispatchAddTodo(text)
+        }
     }
 
     render() {
-        const { text } = this.props.todo
+        const { text, id } = this.props.todo
         return (
             <View style={styles.formContainer}>
                 <View style={styles.inputContainer}>
@@ -28,7 +33,7 @@ class TodoForm extends React.Component {
                 </View>
                 <View style={styles.buttonContainer}>
                     <Button
-                        title="add"
+                        title={id ? "save" : "add"}
                         onPress={() => this.onPress()} 
                     />
                 </View>
@@ -64,5 +69,6 @@ const mapStateToProps = state => {
 //Currying
 export default connect(mapStateToProps, {
     dispatchAddTodo: addTodo,
-    dispatchSetTodoText: setTodoText
+    dispatchSetTodoText: setTodoText,
+    dispatchUpdateTodo: updateTodo
 })(TodoForm)
