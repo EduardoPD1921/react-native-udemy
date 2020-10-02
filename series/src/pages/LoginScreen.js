@@ -1,10 +1,13 @@
 import React from 'react'
 import { View, Text, StyleSheet, TextInput, Button, ActivityIndicator, Alert } from 'react-native'
 import firebase from 'firebase'
+import { connect } from 'react-redux'
 
 import FormRow from '../components/FormRow'
 
-export default class LoginScreen extends React.Component {
+import { tryLogin } from '../actions'
+
+class LoginScreen extends React.Component {
     constructor(props) {
         super(props)
 
@@ -42,43 +45,7 @@ export default class LoginScreen extends React.Component {
         this.setState({isLoading: true, message: ''})
         const { email, password } = this.state
 
-        const loginUserSuccess = user => {
-            this.setState({message: 'Sucesso!'})
-            this.props.navigation.navigate('Main')
-        }
-
-        const loginUserFailed = error => {
-            this.setState({message: this.getMessageByErrorCode(error.code)})
-        }
-
-        firebase.auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(loginUserSuccess)
-            .catch(error => {
-                if (error.code === 'auth/user-not-found') {
-                    Alert.alert(
-                        'Usuário não encontrado',
-                        'Deseja criar um cadastro com as informações inseridas?',
-                        [{
-                            text: 'Não',
-                            onPress: () => {},
-                            style: 'cancel'
-                        }, {
-                            text: 'Sim',
-                            onPress: () => {
-                                firebase.auth()
-                                    .createUserWithEmailAndPassword(email, password)
-                                    .then(loginUserSuccess)
-                                    .catch(loginUserFailed)
-                            }
-                        }],
-                        { cancelable: false }
-                    )
-                    return
-                }
-                loginUserFailed(error)
-            })
-            .then(() => this.setState({ isLoading: false }))
+        this.props.tryLogin({email, password})
     }
 
     getMessageByErrorCode(errorCode) {
@@ -155,3 +122,5 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
     }
 })
+
+export default connect(null, { tryLogin })(LoginScreen)
