@@ -50,6 +50,9 @@ class LoginScreen extends React.Component {
                 this.setState({ message: "Sucesso!" })
                 this.props.navigation.replace('Main')
             })
+            // .catch(error => {
+
+            // })
     }
 
     getMessageByErrorCode(errorCode) {

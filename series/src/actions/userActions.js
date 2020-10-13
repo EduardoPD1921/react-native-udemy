@@ -23,29 +23,29 @@ export const tryLogin = ({ email, password }) => dispatch => {
             dispatch(action)
             return user
         })
-        // .catch(error => {
-        //     if (error.code === 'auth/user-not-found') {
-        //         Alert.alert(
-        //             'Usuário não encontrado',
-        //             'Deseja criar um cadastro com as informações inseridas?',
-        //             [{
-        //                 text: 'Não',
-        //                 onPress: () => {},
-        //                 style: 'cancel'
-        //             }, {
-        //                 text: 'Sim',
-        //                 onPress: () => {
-        //                     firebase.auth()
-        //                         .createUserWithEmailAndPassword(email, password)
-        //                         .then(loginUserSuccess)
-        //                         .catch(loginUserFailed)
-        //                 }
-        //             }],
-        //             { cancelable: false }
-        //         )
-        //         return
-        //     }
-        //     loginUserFailed(error)
-        // })
-        // .then(() => this.setState({ isLoading: false }))
+        .catch(error => {
+            if (error.code === 'auth/user-not-found') {
+                return new Promise((resolve, reject) => {
+                    Alert.alert(
+                        'Usuário não encontrado',
+                        'Deseja criar um cadastro com as informações inseridas?',
+                        [{
+                            text: 'Não',
+                            onPress: () => resolve(),
+                            style: 'cancel'
+                        }, {
+                            text: 'Sim',
+                            onPress: () => {
+                                firebase.auth()
+                                    .createUserWithEmailAndPassword(email, password)
+                                    .then(user => resolve(user))
+                                    .catch(reject)
+                            }
+                        }],
+                        { cancelable: false }
+                    )
+                })
+            }
+            return Promise.reject(error)
+        })
 }
