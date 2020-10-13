@@ -46,6 +46,10 @@ class LoginScreen extends React.Component {
         const { email, password } = this.state
 
         this.props.tryLogin({email, password})
+            .then(() => {
+                this.setState({ message: "Sucesso!" })
+                this.props.navigation.replace('Main')
+            })
     }
 
     getMessageByErrorCode(errorCode) {
