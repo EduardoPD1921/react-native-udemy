@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import { Alert } from 'react-native'
 
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
 const userLoginSuccess = user => {
