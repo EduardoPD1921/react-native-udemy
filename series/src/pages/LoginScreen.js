@@ -105,6 +105,8 @@ class LoginScreen extends React.Component {
                         placeholder="user@mail.com"
                         value={this.state.email}
                         onChangeText={value => this.onChangeHandler('email', value)}
+                        keyboardType="email-address"
+                        autoCapitalize="none"
                     />
                 </FormRow>
                 <FormRow last>
